@@ -11,11 +11,16 @@ function App() {
 
   async function handlePesquisar() {
     if(cnpj.replace(/\D/g,'').length == 14) {
-      // let response = await axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj.replace(/\D/g,'')}`);
-      let response = await axios.get(`/api/cnpj/${cnpj.replace(/\D/g,'')}`);
-      setCompanyData(response);
+      axios.get(`/api/cnpj/${cnpj.replace(/\D/g,'')}`)
+      .then( function (response) {
+        setCompanyData(response);
+      })
+      .catch(function () {
+        alert("Ocorreu um erro, verifique o CNPJ e tente novamente!");
+      });
+      
     } else {
-
+      alert("CNPJ em formato inválido!");
     }
   }
 
